@@ -9,12 +9,6 @@
             },
             "minLength": 5
         },
-        "gtwyIpName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the Application Gateway's public IP."
-            }
-        },
         "gtwyName": {
            "type": "string",
             "metadata": {
@@ -100,7 +94,6 @@
         "namespace": "jira",
         "applicationGateway": {
             "name": "[parameters('gtwyName')]",
-            "publicIpName": "[parameters('gtwyIpName')]",
             "frontend": {
                 "subnet": {
                     "name": "[parameters('gtwySubnetName')]"
