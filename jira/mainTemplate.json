@@ -710,21 +710,6 @@
                     "appGtwyTier": {
                         "value": "[if(variables('isJiraClusterSizeUsed'), variables('clusterLookup').appGtwyTier[parameters('jiraClusterSize')], parameters('appGtwyTier'))]"
                     },
-                    "vnetName": {
-                        "value": "[reference('vpcTemplate').outputs.vnetName.value]"
-                    },
-                    "appSubnetName": {
-                        "value": "[reference('vpcTemplate').outputs.appSubnetName.value]"
-                    },
-                    "gtwySubnetName": {
-                        "value": "[reference('vpcTemplate').outputs.gtwySubnetName.value]"
-                    },
-                    "jumpboxName": {
-                        "value": "[reference('vpcTemplate').outputs.jumpboxName.value]"
-                    },
-                    "jumpboxPublicIpAddress": {
-                        "value": "[reference('vpcTemplate').outputs.jumpboxPublicIpAddress.value]"
-                    },
                     "sslBase64EncodedPfxCertificate": {
                         "value": "[parameters('sslBase64EncodedPfxCertificate')]"
                     },
@@ -850,14 +835,6 @@
         "appEndpoint": {
             "type": "string",
             "value": "[if(not(empty(parameters('sslBase64EncodedPfxCertificate'))), concat('https://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('jiraTemplate').outputs.jiraAppEndpoint.value)), concat('http://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('jiraTemplate').outputs.jiraAppEndpoint.value)))]"
-        },
-        "bastionUrl": {
-            "type": "string",
-            "value": "[reference('vpcTemplate').outputs.jumpboxPublicEndpoint.value]"
-        },
-        "sshUrl": {
-            "type": "string",
-            "value": "[reference('vpcTemplate').outputs.sshUri.value]"
         },
         "jdbcUrl": {
             "type": "string",
