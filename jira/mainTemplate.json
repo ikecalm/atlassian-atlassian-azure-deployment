@@ -770,9 +770,6 @@
                     "cname": {
                         "value": "[parameters('cname')]"
                     },
-                    "gtwyIpName": {
-                        "value": "[reference('jiraTemplate').outputs.gtwyIpName.value]"
-                    },
                     "prefix": {
                         "value": "[if(variables('isJiraProduct'), 'jira', 'servicedesk')]"
                     }
