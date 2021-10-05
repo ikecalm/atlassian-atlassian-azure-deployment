@@ -351,15 +351,6 @@
                 ],
                 "frontendIPConfigurations": [
                     {
-                        "name": "[variables('applicationGateway').frontend.ipConfiguration.name]",
-                        "properties": {
-                            "privateIPAllocationMethod": "Dynamic",
-                            "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses/', variables('applicationGateway').publicIpName)]"
-                            }
-                        }
-                    },
-                    {
                         "name": "[variables('applicationGateway').frontend.ipConfiguration.private.name]",
                         "type": "Microsoft.Network/applicationGateways/frontendIPConfigurations",
                         "properties": {
