@@ -504,10 +504,6 @@
             "sku": "[parameters('workspaceSku')]",
             "retentionInDays": 7
         },
-        "vnet": {
-            "name": "[concat(variables('namespace'), 'vnet')]",
-            "prefix": "10.0.0.0/16"
-        },
         "gtwySubnet": {
             "name": "[concat(variables('namespace'), 'appgwsubnet')]",
             "prefix": "10.0.1.0/24"
