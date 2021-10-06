@@ -528,6 +528,45 @@
     },
     "resources": [
         {
+            "type": "Microsoft.Network/virtualNetworks",
+            "apiVersion": "2020-05-01",
+            "name": "[variables('vnet').name]",
+            "location": "[parameters('location')]",
+            "tags": "[variables('tags')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups/', variables('appSubnet').nsg.name)]"
+            ],
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('vnet').prefix]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('gtwySubnet').name]",
+                        "properties": {
+                            "addressPrefix": "[variables('gtwySubnet').prefix]"
+                        }
+                    },
+                    {
+                        "name": "[variables('appSubnet').name]",
+                        "properties": {
+                            "addressPrefix": "[variables('appSubnet').prefix]",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('appSubnet').nsg.name)]"
+                            },
+                            "serviceEndpoints": [
+                                {
+                                    "service": "Microsoft.Sql",
+                                    "locations": [
+                                        "[parameters('location')]"
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+        {
             "type": "Microsoft.OperationalInsights/workspaces",
             "name": "[variables('workspace').name]",
             "condition": "[parameters('enableAnalytics')]",
