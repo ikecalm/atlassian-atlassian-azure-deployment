@@ -527,7 +527,7 @@
         "storageName": "[concat('Microsoft.Storage/storageAccounts/', if(parameters('enablePremiumFiles'), variables('jira').storage.diagnostics, variables('jira').storage.name))]"
     },
     "resources": [
-        {
+    {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2020-05-01",
             "name": "[variables('vnet').name]",
@@ -564,7 +564,11 @@
                                     ]
                                 }
                             ]
+                        }
                     },
+                ]
+            }
+        },
         {
             "type": "Microsoft.OperationalInsights/workspaces",
             "name": "[variables('workspace').name]",
