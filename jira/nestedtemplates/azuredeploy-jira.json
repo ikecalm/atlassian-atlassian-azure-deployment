@@ -1200,6 +1200,10 @@
         }
     ],
     "outputs": {
+         "vnetName": {
+            "type": "string",
+            "value": "[variables('vnet').name]"
+        },
         "jdbcUrl": {
             "type": "string",
             "value": "[if(parameters('dbCreateNew'), reference(variables('dbTemplate')).outputs.jdbcUrl.value, reference('byodbTemplate').outputs.jdbcUrl.value)]"
