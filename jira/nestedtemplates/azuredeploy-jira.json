@@ -342,7 +342,7 @@
                 "description": "The Application Gateway size."
             }
         },
-        "vnetName": {
+        "vnet": {
             "type": "string",
             "metadata": {
                 "description": "The name of the Jira virtual network."
@@ -504,7 +504,7 @@
             "sku": "[parameters('workspaceSku')]",
             "retentionInDays": 7
         },
-        "vnetName": {
+        "vnet": {
             "name": "[concat(variables('namespace'), 'vnet')]",
             "prefix": "10.0.0.0/16"
         },
@@ -680,8 +680,8 @@
                     "dbTierSize": {
                         "value": "[parameters('dbTierSize')]"
                     },
-                    "vnetName": {
-                        "value": "[parameters('vnetName')]"
+                    "vnet": {
+                        "value": "[parameters('vnet')]"
                     },
                     "appSubnetName": {
                         "value": "[parameters('appSubnetName')]"
@@ -734,8 +734,8 @@
                     "postgresDbStorage": {
                         "value": "[parameters('postgresDbStorage')]"
                     },
-                    "vnetName": {
-                        "value": "[parameters('vnetName')]"
+                    "vnet": {
+                        "value": "[parameters('vnet')]"
                     },
                     "appSubnetName": {
                         "value": "[parameters('appSubnetName')]"
@@ -785,8 +785,8 @@
                     "dbUsername": {
                         "value": "[parameters('dbUsername')]"
                     },
-                    "vnetName": {
-                        "value": "[parameters('vnetName')]"
+                    "vnet": {
+                        "value": "[parameters('vnet')]"
                     },
                     "appSubnetName": {
                         "value": "[parameters('appSubnetName')]"
@@ -893,8 +893,8 @@
                     "appGtwyTier": {
                         "value": "[parameters('appGtwyTier')]"
                     },
-                    "vnetName": {
-                        "value": "[parameters('vnetName')]"
+                    "vnet": {
+                        "value": "[parameters('vnet')]"
                     },
                     "gtwySubnetName": {
                         "value": "[parameters('gtwySubnetName')]"
@@ -1000,8 +1000,8 @@
                     "jiraAppTitle": {
                         "value": "[parameters('jiraAppTitle')]"
                     },
-                    "vnetName": {
-                        "value": "[parameters('vnetName')]"
+                    "vnet": {
+                        "value": "[parameters('vnet')]"
                     },
                     "appSubnetName": {
                         "value": "[parameters('appSubnetName')]"
