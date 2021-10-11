@@ -504,7 +504,7 @@
             "sku": "[parameters('workspaceSku')]",
             "retentionInDays": 7
         },
-        "vnet": {
+        "vnetName": {
             "name": "[concat(variables('namespace'), 'vnet')]",
             "prefix": "10.0.0.0/16"
         },
