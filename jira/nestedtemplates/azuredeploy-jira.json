@@ -342,7 +342,7 @@
                 "description": "The Application Gateway size."
             }
         },
-        "vnet": {
+        "vnetName": {
             "type": "string",
             "metadata": {
                 "description": "The name of the Jira virtual network."
@@ -680,7 +680,7 @@
                     "dbTierSize": {
                         "value": "[parameters('dbTierSize')]"
                     },
-                    "vnet": {
+                    "vnetName": {
                         "value": "[parameters('vnet')]"
                     },
                     "appSubnetName": {
@@ -734,7 +734,7 @@
                     "postgresDbStorage": {
                         "value": "[parameters('postgresDbStorage')]"
                     },
-                    "vnet": {
+                    "vnetName": {
                         "value": "[parameters('vnet')]"
                     },
                     "appSubnetName": {
@@ -785,7 +785,7 @@
                     "dbUsername": {
                         "value": "[parameters('dbUsername')]"
                     },
-                    "vnet": {
+                    "vnetName": {
                         "value": "[parameters('vnet')]"
                     },
                     "appSubnetName": {
@@ -893,7 +893,7 @@
                     "appGtwyTier": {
                         "value": "[parameters('appGtwyTier')]"
                     },
-                    "vnet": {
+                    "vnetName": {
                         "value": "[parameters('vnet')]"
                     },
                     "gtwySubnetName": {
@@ -1000,7 +1000,7 @@
                     "jiraAppTitle": {
                         "value": "[parameters('jiraAppTitle')]"
                     },
-                    "vnet": {
+                    "vnetName": {
                         "value": "[parameters('vnet')]"
                     },
                     "appSubnetName": {
