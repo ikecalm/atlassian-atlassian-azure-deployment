@@ -517,6 +517,7 @@
         }
     },
     "variables": {
+        "vpcTemplateUri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/azuredeploy-vpc.json', parameters('_artifactsLocationSasToken')))]",
         "jiraTemplateUri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/azuredeploy-jira.json', parameters('_artifactsLocationSasToken')))]",
         "domainTemplateUri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/azuredeploy-domain.json', parameters('_artifactsLocationSasToken')))]",
         "alertsTemplateUri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/azuredeploy-alerts.json', parameters('_artifactsLocationSasToken')))]",
@@ -615,7 +616,39 @@
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
+            "name": "vpcTemplate",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('vpcTemplateUri')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "location": {
+                        "value": "[parameters('location')]"
+                    },
+                    "jumpboxVmSize": {
+                        "value": "[if(variables('isJiraClusterSizeUsed'), variables('clusterLookup').jumpboxVmSize[parameters('jiraClusterSize')], parameters('jumpboxVmSize'))]"
+                    },
+                    "sshKey": {
+                        "value": "[parameters('sshKey')]"
+                    },
+                    "sshUserName": {
+                        "value": "[parameters('sshUserName')]"
+                    },
+                    "linuxOsType": {
+                        "value": "[parameters('linuxOsType')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-09-01",
             "name": "jiraTemplate",
+            "dependsOn": [
+                "vpcTemplate"
+            ],
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -710,6 +743,21 @@
                     "appGtwyTier": {
                         "value": "[if(variables('isJiraClusterSizeUsed'), variables('clusterLookup').appGtwyTier[parameters('jiraClusterSize')], parameters('appGtwyTier'))]"
                     },
+                    "vnetName": {
+                        "value": "[reference('vpcTemplate').outputs.vnetName.value]"
+                    },
+                    "appSubnetName": {
+                        "value": "[reference('vpcTemplate').outputs.appSubnetName.value]"
+                    },
+                    "gtwySubnetName": {
+                        "value": "[reference('vpcTemplate').outputs.gtwySubnetName.value]"
+                    },
+                    "jumpboxName": {
+                        "value": "[reference('vpcTemplate').outputs.jumpboxName.value]"
+                    },
+                    "jumpboxPublicIpAddress": {
+                        "value": "[reference('vpcTemplate').outputs.jumpboxPublicIpAddress.value]"
+                    },
                     "sslBase64EncodedPfxCertificate": {
                         "value": "[parameters('sslBase64EncodedPfxCertificate')]"
                     },
@@ -751,7 +799,7 @@
                     }
                 }
             }
-          },    
+        },
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2019-09-01",
@@ -769,6 +817,9 @@
                 "parameters": {
                     "cname": {
                         "value": "[parameters('cname')]"
+                    },
+                    "gtwyIpName": {
+                        "value": "[reference('jiraTemplate').outputs.gtwyIpName.value]"
                     },
                     "prefix": {
                         "value": "[if(variables('isJiraProduct'), 'jira', 'servicedesk')]"
@@ -832,6 +883,14 @@
         "appEndpoint": {
             "type": "string",
             "value": "[if(not(empty(parameters('sslBase64EncodedPfxCertificate'))), concat('https://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('jiraTemplate').outputs.jiraAppEndpoint.value)), concat('http://', if(greater(length(parameters('cname')), 0), reference('domainTemplate').outputs.alias.value, reference('jiraTemplate').outputs.jiraAppEndpoint.value)))]"
+        },
+        "bastionUrl": {
+            "type": "string",
+            "value": "[reference('vpcTemplate').outputs.jumpboxPublicEndpoint.value]"
+        },
+        "sshUrl": {
+            "type": "string",
+            "value": "[reference('vpcTemplate').outputs.sshUri.value]"
         },
         "jdbcUrl": {
             "type": "string",
